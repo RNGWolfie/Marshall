@@ -1,10 +1,12 @@
 from rlbot.flat import GamePacket, ControllerState
 from rlbot.managers.bot import Bot
 from controllers.drive import DriveController
+from utility.bot_math import BotMath
 
 class Marshall(Bot):
     def __init__(self):
         super().__init__()
+        self.math = BotMath(self)
 
         self.ball = None
         self.ball_location = None
@@ -17,6 +19,7 @@ class Marshall(Bot):
 
     def get_output(self, packet: GamePacket) -> ControllerState:
         controls = ControllerState()
+
         self.ball = packet.balls[0]
         self.ball_location = self.ball.physics.location
 
